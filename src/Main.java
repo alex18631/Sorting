@@ -63,24 +63,34 @@ public class Main {
         int right = mass.length - 1;
         print(mass);
         while (left <= right) {
+            int l = 0;
+            int r = 0;
             for (int i = left; i < right; i++) {
                 if (mass[i] > mass[i + 1]) {
                     int temp = mass[i];
                     mass[i] = mass[i + 1];
                     mass[i + 1] = temp;
+                    r = i;
                 }
                 result++;
             }
-            right--;
+            if (r == 0) {
+                break;
+            }
+            right = r;
             for (int j = right; j > left; j--) {
                 if (mass[j] < mass[j - 1]) {
                     int temp = mass[j];
                     mass[j] = mass[j - 1];
                     mass[j - 1] = temp;
+                    l = j;
                 }
                 result++;
             }
-            left++;
+            if (l == 0) {
+                break;
+            }
+            left = l;
             print(mass);
         }
         return result;
