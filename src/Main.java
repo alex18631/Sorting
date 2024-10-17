@@ -13,8 +13,8 @@ public class Main {
         print(mas);
         System.out.println("Старт пузырьковая");
         System.out.println("Конец пузырьковой сортировки. Кол-во проходов " + пузырьковая(Arrays.copyOf(mas, mas.length)));
-        System.out.println("Старт пузырьковаяУлучш");
-        System.out.println("Конец пузырьковаяУлучш сортировки. Кол-во проходов " + пузырьковаяУлучш(Arrays.copyOf(mas, mas.length)));
+        System.out.println("Старт пузырьковая Улучш");
+        System.out.println("Конец пузырьковая Улучш сортировки. Кол-во проходов " + пузырьковаяУлучш(Arrays.copyOf(mas, mas.length)));
         System.out.println("Старт шейкерная");
         System.out.println("Конец шейкерная сортировки. Кол-во проходов " + шейкерная(Arrays.copyOf(mas, mas.length)));
         System.out.println("Старт расчёска");
@@ -23,8 +23,8 @@ public class Main {
 
     public static int пузырьковая(int[] mass) {
         int result = 0;
+        print(mass);
         for (int j = 0; j < mass.length; j++) {
-            print(mass);
             for (int i = 0; i < mass.length - 1; i++) {
                 if (mass[i] > mass[i + 1]) {
                     int temp = mass[i];
@@ -40,9 +40,9 @@ public class Main {
     public static int пузырьковаяУлучш(int[] mass) {
         boolean k;
         int result = 0;
+        print(mass);
         do {
             k = false;
-            print(mass);
             for (int i = 0; i < mass.length - 1; i++) {
                 if (mass[i] > mass[i + 1]) {
                     int temp = mass[i];
@@ -52,12 +52,38 @@ public class Main {
                 }
                 result++;
             }
+            print(mass);
         } while (k);
         return result;
     }
 
     public static int шейкерная(int[] mass) {
-        return 0;
+        int result = 0;
+        int left = 0;
+        int right = mass.length - 1;
+        print(mass);
+        while (left <= right) {
+            for (int i = left; i < right; i++) {
+                if (mass[i] > mass[i + 1]) {
+                    int temp = mass[i];
+                    mass[i] = mass[i + 1];
+                    mass[i + 1] = temp;
+                }
+                result++;
+            }
+            right--;
+            for (int j = right; j > left; j--) {
+                if (mass[j] < mass[j - 1]) {
+                    int temp = mass[j];
+                    mass[j] = mass[j - 1];
+                    mass[j - 1] = temp;
+                }
+                result++;
+            }
+            left++;
+            print(mass);
+        }
+        return result;
     }
 
     public static int расчёска(int[] mass) {
