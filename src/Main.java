@@ -4,24 +4,23 @@ import java.util.Random;
 public class Main {
     public static void main(String[] args) {
         Random random = new Random();
-        int[] mas = new int[random.nextInt(10) + 1];
+        int[] mas = new int[random.nextInt(100) + 1];
         int length = mas.length;
         for (int i = 0; i < length; i++) {
             mas[i] = random.nextInt(30) + 1;
         }
         System.out.println("Кол-во элементов " + length);
-        print(mas);
         System.out.println("Старт пузырьковая");
-        System.out.println("Конец пузырьковой сортировки. Кол-во проходов " + пузырьковая(Arrays.copyOf(mas, mas.length)));
+        System.out.println("Конец пузырьковой сортировки. Кол-во проходов " + bubble(Arrays.copyOf(mas, mas.length)));
         System.out.println("Старт пузырьковая Улучш");
-        System.out.println("Конец пузырьковая Улучш сортировки. Кол-во проходов " + пузырьковаяУлучш(Arrays.copyOf(mas, mas.length)));
+        System.out.println("Конец пузырьковая Улучш сортировки. Кол-во проходов " + bubbleUpgrade(Arrays.copyOf(mas, mas.length)));
         System.out.println("Старт шейкерная");
-        System.out.println("Конец шейкерная сортировки. Кол-во проходов " + шейкерная(Arrays.copyOf(mas, mas.length)));
+        System.out.println("Конец шейкерная сортировки. Кол-во проходов " + shaker(Arrays.copyOf(mas, mas.length)));
         System.out.println("Старт расчёска");
-        System.out.println("Конец шейкерная сортировки. Кол-во проходов " + расчёска(Arrays.copyOf(mas, mas.length)));
+        System.out.println("Конец шейкерная сортировки. Кол-во проходов " + comb(Arrays.copyOf(mas, mas.length)));
     }
 
-    public static int пузырьковая(int[] mass) {
+    public static int bubble(int[] mass) {
         int result = 0;
         print(mass);
         for (int j = 0; j < mass.length; j++) {
@@ -37,7 +36,7 @@ public class Main {
         return result;
     }
 
-    public static int пузырьковаяУлучш(int[] mass) {
+    public static int bubbleUpgrade(int[] mass) {
         boolean k;
         int result = 0;
         print(mass);
@@ -57,7 +56,7 @@ public class Main {
         return result;
     }
 
-    public static int шейкерная(int[] mass) {
+    public static int shaker(int[] mass) {
         int result = 0;
         int left = 0;
         int right = mass.length - 1;
@@ -96,8 +95,24 @@ public class Main {
         return result;
     }
 
-    public static int расчёска(int[] mass) {
-        return 0;
+    public static int comb(int[] mass) {
+        double reductionFactor = 1.25;
+        int nextValue = mass.length - 1;
+        int result = 0;
+        print(mass);
+        while (nextValue >= 1) {
+            for (int i = 0; i + nextValue < mass.length; i++) {
+                if (mass[i] > mass[i + nextValue]) {
+                    int temp = mass[i];
+                    mass[i] = mass[i + nextValue];
+                    mass[i + nextValue] = temp;
+                }
+                result++;
+            }
+            nextValue = (int) (nextValue / reductionFactor);
+            print(mass);
+        }
+        return result;
     }
 
     public static void print(int[] mass) {
